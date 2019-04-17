@@ -11,7 +11,7 @@ if (isset($_POST['submit'])) {
 
 	$zwsId = trim($_POST['zwsId']);
 }
-$url = 'http://www.zillow.com/webservice/GetSearchResults.htm?zws-id=' . $zwsId . $params;
+$url = 'http://www.zillow.com/webservice/GetSearchResults.htm?zws-id=' . $zwsId . $params . '&rentzestimate=true';
 $jsonObject = '{
     "identity": {
     "addresses": [
@@ -61,6 +61,8 @@ $sXML = getXml($url);
 $aux = !empty($sXML) ? explode('ï»¿', $sXML) : NULL;
 $temp = utf8_decode(trim($aux[0]));
 $xml = (array) simplexml_load_string($temp);
+echo '<pre>';
+print_r($xml);die;
 $exitingBoject = json_decode($jsonObject);
 $exist = (array) $exitingBoject->identity;
 if (isset($xml['response'])) {
